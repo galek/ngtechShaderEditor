@@ -86,19 +86,19 @@ namespace NGEd.Tools
         public void AskAboutLoadAutoSaveScene()
         {
             // See if the file exists.
-            if (File.Exists(m_state.CurrentSceneName + m_bakName))
-            {
-                // Ask the user if we should load this file.
-                if (XtraMessageBox.Show(
-                    "An auto-save file exists. Do you want to load it?",
-                    "Restore?", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question)
-                    == DialogResult.Yes)
-                {
-                    // Load the file.
-                    LoadFromFile(m_state.CurrentSceneName + m_bakName);
-                }
-            }
+            //if (File.Exists(m_state.CurrentSceneName + m_bakName))
+            //{
+            //    // Ask the user if we should load this file.
+            //    if (XtraMessageBox.Show(
+            //        "An auto-save file exists. Do you want to load it?",
+            //        "Restore?", MessageBoxButtons.YesNo,
+            //        MessageBoxIcon.Question)
+            //        == DialogResult.Yes)
+            //    {
+            //        // Load the file.
+            //        LoadFromFile(m_state.CurrentSceneName + m_bakName);
+            //    }
+            //}
         }
 
         private void LoadFromFile(string _file)
@@ -106,18 +106,18 @@ namespace NGEd.Tools
 
         private void Save()
         {
-            if (GetEngine == null || GetState == null)
-            {
-                return;
-            }
+            //if (GetEngine == null || GetState == null)
+            //{
+            //    return;
+            //}
 
-            // останавливаем симуляцию
-            m_state.IsSimPaused = true;
-            _SaveScene(String.Empty, String.Empty);
+            //// останавливаем симуляцию
+            //m_state.IsSimPaused = true;
+            //_SaveScene(String.Empty, String.Empty);
 
-            // Deletion of existing bak file
-            if (File.Exists(m_state.CurrentSceneName + m_bakName))
-                File.Delete(m_state.CurrentSceneName + m_bakName);
+            //// Deletion of existing bak file
+            //if (File.Exists(m_state.CurrentSceneName + m_bakName))
+            //    File.Delete(m_state.CurrentSceneName + m_bakName);
         }
 
         // Auto-save.
@@ -131,13 +131,13 @@ namespace NGEd.Tools
 
         private void _SaveScene(string _prefix, string _postExt)
         {
-            if (m_engine == null || m_state == null || String.IsNullOrEmpty(m_state.CurrentSceneName) ||
-                m_state.CurrentSceneName == "EMPTY"
-                || m_state.IsSimPaused == false
-                )
-            {
-                return;
-            }
+            //if (m_engine == null || m_state == null || String.IsNullOrEmpty(m_state.CurrentSceneName) ||
+            //    m_state.CurrentSceneName == "EMPTY"
+            //    || m_state.IsSimPaused == false
+            //    )
+            //{
+            //    return;
+            //}
 
             //SaveLoadHelper.SaveEngineFormat(_prefix + m_state.CurrentSceneName + _postExt, SaveLoadHelper.Type.SCENE);
         }

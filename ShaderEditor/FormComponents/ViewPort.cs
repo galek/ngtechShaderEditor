@@ -187,8 +187,8 @@ namespace NGEd
         /// <param name="e"></param>
         private void ViewPort_DoubleClick(object sender, MouseEventArgs e)
         {
-            if (engine == null)
-                return;
+            //if (engine == null)
+            //    return;
 
             // Если захвачен, то выполняем функции редактора
             EDITORActionsDoubleClick(e);

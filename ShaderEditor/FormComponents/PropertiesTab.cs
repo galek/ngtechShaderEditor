@@ -16,6 +16,7 @@ namespace NGEd
     using DevExpress.XtraEditors.Controls;
     using DevExpress.XtraEditors.Repository;
     using DevExpress.XtraVerticalGrid.Events;
+    //using EngineCLR;
     using System;
     using System.Windows.Forms;
 
@@ -48,14 +49,14 @@ namespace NGEd
 
         private void propertyGrid1_CellValueChanged(object sender, CellValueChangedEventArgs e)
         {
-            log.DebugPrintf(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            //log.DebugPrintf(System.Reflection.MethodBase.GetCurrentMethod().Name);
             if (this.propertyGrid1 != null)
                 this.propertyGrid1.Refresh();
         }
 
         private void propertyGrid1_StateChanged(object sender, EventArgs e)
         {
-            log.Warning(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            //log.Warning(System.Reflection.MethodBase.GetCurrentMethod().Name);
             _UpdatePropGrid(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
@@ -99,11 +100,11 @@ namespace NGEd
             _browserFolderDialogEdit.ButtonClick += openFileDialogButtonClick;
 
             /*See docs on: https://documentation.devexpress.com/#WindowsForms/clsDevExpressXtraEditorsRepositoryRepositoryItemtopic*/
-            propertyGrid1.DefaultEditors.Add(typeof(MFileNameEditor), _browserFolderDialogEdit);
-            propertyGrid1.DefaultEditors.Add(typeof(TextureNameEditor), _browserFolderDialogEdit);
-            propertyGrid1.DefaultEditors.Add(typeof(MaterialNameEditor), _browserFolderDialogEdit);
-            propertyGrid1.DefaultEditors.Add(typeof(ShaderNameEditor), _browserFolderDialogEdit);
-            propertyGrid1.DefaultEditors.Add(typeof(ScriptNameEditor), _browserFolderDialogEdit);
+            //propertyGrid1.DefaultEditors.Add(typeof(MFileNameEditor), _browserFolderDialogEdit);
+            //propertyGrid1.DefaultEditors.Add(typeof(TextureNameEditor), _browserFolderDialogEdit);
+            //propertyGrid1.DefaultEditors.Add(typeof(MaterialNameEditor), _browserFolderDialogEdit);
+            //propertyGrid1.DefaultEditors.Add(typeof(ShaderNameEditor), _browserFolderDialogEdit);
+            //propertyGrid1.DefaultEditors.Add(typeof(ScriptNameEditor), _browserFolderDialogEdit);
 
             /*Внезапно, но приходится и стандартные методы перегружать*/
             propertyGrid1.DefaultEditors.Add(typeof(float), _repositoryItemSpinEditFloat);
@@ -119,8 +120,8 @@ namespace NGEd
             // TODO:!HACK Не убирай, тут каст к INT
             propertyGrid1.DefaultEditors.Add(typeof(Decimal), _repositoryItemSpinEditINT);
 
-            propertyGrid1.DefaultEditors.Add(typeof(MVec3), _repositoryStringEdit);
-            propertyGrid1.DefaultEditors.Add(typeof(MVec4), _repositoryStringEdit);
+            //propertyGrid1.DefaultEditors.Add(typeof(MVec3), _repositoryStringEdit);
+            //propertyGrid1.DefaultEditors.Add(typeof(MVec4), _repositoryStringEdit);
 
             propertyGrid1.CustomDrawRowValueCell += propertyGrid_CustomDrawRowValuCell;
             propertyGrid1.CustomRecordCellEdit += PropertyGrid1_CustomRecordCellEdit;
@@ -299,37 +300,37 @@ namespace NGEd
 
         private void propertyGrid_CustomDrawRowValuCell(object sender, CustomDrawRowValueCellEventArgs e)
         {
-            if (propertyGrid1.SelectedObject == null || e.Row.Properties.RowEdit != null)
-                return;
+            //if (propertyGrid1.SelectedObject == null || e.Row.Properties.RowEdit != null)
+            //    return;
 
-            System.Reflection.MemberInfo[] mi = (propertyGrid1.SelectedObject.GetType()).GetMember(e.Row.Properties.FieldName);
-            if (mi.Length == 1)
-            {
-                EditorAliasAttribute attr = (EditorAliasAttribute)Attribute.GetCustomAttribute(mi[0], typeof(EditorAliasAttribute));
-                if (attr != null)
-                {
-                    // TODO: Project Editor implementation of types
-                    //f(attr.EditorType == CustomEditorType.FolderBrowserEditor)
-                    e.Row.Properties.RowEdit = _browserFolderDialogEdit;
-                }
-            }
+            //System.Reflection.MemberInfo[] mi = (propertyGrid1.SelectedObject.GetType()).GetMember(e.Row.Properties.FieldName);
+            //if (mi.Length == 1)
+            //{
+            //    EditorAliasAttribute attr = (EditorAliasAttribute)Attribute.GetCustomAttribute(mi[0], typeof(EditorAliasAttribute));
+            //    if (attr != null)
+            //    {
+            //        // TODO: Project Editor implementation of types
+            //        //f(attr.EditorType == CustomEditorType.FolderBrowserEditor)
+            //        e.Row.Properties.RowEdit = _browserFolderDialogEdit;
+            //    }
+            //}
         }
 
         /**/
 
         private void openFileDialogButtonClick(object sender, ButtonPressedEventArgs e)
         {
-            using (var frm = new OpenFileDialog())
-            {
-                // Set start folder
-                var path = propertyGrid1.EditingValue.ToString();
+            //using (var frm = new OpenFileDialog())
+            //{
+            //    // Set start folder
+            //    var path = propertyGrid1.EditingValue.ToString();
 
-                // Get new path
-                if ((frm.ShowDialog() == DialogResult.OK) && (frm.SafeFileName != ""))
-                {
-                    propertyGrid1.EditingValue = new MFileNameEditor(frm.SafeFileName);
-                }
-            }
+            //    // Get new path
+            //    if ((frm.ShowDialog() == DialogResult.OK) && (frm.SafeFileName != ""))
+            //    {
+            //        propertyGrid1.EditingValue = new MFileNameEditor(frm.SafeFileName);
+            //    }
+            //}
         }
     }
 }

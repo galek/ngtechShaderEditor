@@ -223,16 +223,16 @@ namespace NGEd
 
         private void barButtonItem10_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            SaveFileDialog openFileDialog1 = new SaveFileDialog();
-            openFileDialog1.InitialDirectory = "../";
-            openFileDialog1.Filter = "Material file (*.mat)|*.mat|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 2;
-            openFileDialog1.RestoreDirectory = false;
-            if ((openFileDialog1.ShowDialog() == DialogResult.OK) && (openFileDialog1.FileName != ""))
-            {
-                SaveLoadHelper.SaveEngineFormat(openFileDialog1.FileName, SaveLoadHelper.Type.MATERIAL);
-            }
-            openFileDialog1.Dispose();
+            //SaveFileDialog openFileDialog1 = new SaveFileDialog();
+            //openFileDialog1.InitialDirectory = "../";
+            //openFileDialog1.Filter = "Material file (*.mat)|*.mat|All files (*.*)|*.*";
+            //openFileDialog1.FilterIndex = 2;
+            //openFileDialog1.RestoreDirectory = false;
+            //if ((openFileDialog1.ShowDialog() == DialogResult.OK) && (openFileDialog1.FileName != ""))
+            //{
+            //    SaveLoadHelper.SaveEngineFormat(openFileDialog1.FileName, SaveLoadHelper.Type.MATERIAL);
+            //}
+            //openFileDialog1.Dispose();
         }
     }
 }
