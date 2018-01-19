@@ -85,8 +85,22 @@ namespace Graph
 
         #region Grid
 
-        public bool ShowGrid = true;
+        public bool m_ShowGrid = true;
         public float internalSmallGridStep = 16.0f;
+
+        public bool ShowGrid
+        {
+            get
+            {
+                return m_ShowGrid;
+            }
+            set
+            {
+                m_ShowGrid = value;
+                this.Refresh();
+            }
+        }
+
 
         [Description("The distance between the smallest grid lines"), Category("Appearance")]
         public float SmallGridStep

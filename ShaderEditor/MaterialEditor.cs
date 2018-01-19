@@ -304,5 +304,10 @@ namespace NGEd
         {
             propWindow.HideReadOnlyValues = barCheckItem1.Checked;
         }
+
+        private void barCheckItem2_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            this.graphControl.GraphControl.ShowGrid = barCheckItem2.Checked;
+        }
     }
 }

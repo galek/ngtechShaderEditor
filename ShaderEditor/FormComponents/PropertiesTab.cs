@@ -44,6 +44,7 @@ namespace NGEd
                 {
                     DeleteReadOnlyRows();
                 }
+                this.Refresh();
             }
         }
 
