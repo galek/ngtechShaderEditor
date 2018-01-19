@@ -185,6 +185,7 @@
     <Compile Include="MaterialNodes\MaterialBaseNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShaderFormat\BaseShaderFormat.cs" />
     <Compile Include="Tools\AutoSaveTools.cs" />
     <Compile Include="Tools\DockingUtils.cs" />
     <Compile Include="Tools\Utils.cs" />

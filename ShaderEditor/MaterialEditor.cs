@@ -56,9 +56,20 @@ namespace NGEd
             _RegisterAllNodes();
 
             graphControl.GraphControl.ShowElementMenu += new EventHandler<Graph.AcceptElementLocationEventArgs>(OnShowElementMenu);
+            graphControl.GraphControl.FocusChanged += new EventHandler<Graph.ElementEventArgs>(GraphControl_Click);
+
 
             DockingUtils.CreateEditorFolderIfNotExist();
             DockingUtils.LoadLayoutConfiguration(_LayoutName, dockManager1);
+        }
+
+        private void GraphControl_Click(object sender, ElementEventArgs e)
+        {
+            var obj = e.Element;
+            if (obj == null)
+                return;
+
+            SelectObjProp(obj);
         }
 
         //public void SetState(EditorState _state)
@@ -195,6 +206,14 @@ namespace NGEd
             //propWindow.propertyGrid1.Refresh();
         }
 
+        private void SelectObjProp(Object _node)
+        {
+            propWindow.propertyGrid1.SelectedObject = _node;
+            propWindow.propertyGrid1.RetrieveFields();
+            propWindow.propertyGrid1.UpdateRows();
+            propWindow.propertyGrid1.Refresh();
+        }
+
         //private EditorState editorState = null;
         private PropertiesTab propWindow = null;
         private NGEd.FormComponents.NodeComponent graphControl = null;
@@ -308,12 +327,6 @@ namespace NGEd
 
             graphControl.GraphControl.SetGraphNodes((List<Node>)res);
 
-            // To prove that the table deserialized correctly, 
-            // display the key/value pairs.
-            //foreach (DictionaryEntry de in addresses)
-            //{
-            //    Console.WriteLine("{0} lives at {1}.", de.Key, de.Value);
-            //}
         }
     }
 }
