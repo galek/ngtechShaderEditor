@@ -503,10 +503,11 @@ namespace Graph
 
         #region Nodes
 
-        private readonly List<Node> graphNodes = new List<Node>();
+        private List<Node> graphNodes = new List<Node>();
 
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public IEnumerable<Node> Nodes { get { return graphNodes; } }
+        public void SetGraphNodes(List<Node> _graphNodes) { graphNodes = _graphNodes; Refresh(); }
 
         #endregion Nodes
 

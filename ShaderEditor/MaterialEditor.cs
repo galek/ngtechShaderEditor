@@ -23,6 +23,8 @@ using System.IO;
 using System.Collections;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using Graph;
+using System.Collections.Generic;
 
 namespace NGEd
 {
@@ -264,8 +266,6 @@ namespace NGEd
             BinaryFormatter formatter = new BinaryFormatter();
             try
             {
-                
-
                 formatter.Serialize(fs, graphControl.GraphControl.Nodes);
             }
             catch (SerializationException er)
@@ -279,6 +279,41 @@ namespace NGEd
                 fs.Close();
             }
 
+        }
+
+        private void barButtonItem12_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            // Open the file containing the data that you want to deserialize.
+            FileStream fs = new FileStream("DataFile.dat", FileMode.Open);
+
+            object res = null;
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                // Deserialize the hashtable from the file and 
+                // assign the reference to the local variable.
+                res = formatter.Deserialize(fs);
+            }
+            catch (SerializationException er)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + er.Message);
+                MessageBox.Show(er.Message, "1", MessageBoxButtons.OK);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            graphControl.GraphControl.SetGraphNodes((List<Node>)res);
+
+            // To prove that the table deserialized correctly, 
+            // display the key/value pairs.
+            //foreach (DictionaryEntry de in addresses)
+            //{
+            //    Console.WriteLine("{0} lives at {1}.", de.Key, de.Value);
+            //}
         }
     }
 }
