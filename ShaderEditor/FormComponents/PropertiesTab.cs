@@ -16,6 +16,7 @@ namespace NGEd
     using DevExpress.XtraEditors.Controls;
     using DevExpress.XtraEditors.Repository;
     using DevExpress.XtraVerticalGrid.Events;
+    using DevExpress.XtraVerticalGrid.Rows;
     //using EngineCLR;
     using System;
     using System.Windows.Forms;
@@ -33,6 +34,27 @@ namespace NGEd
             customize = new PropertiesTabCustomize(propertyGrid1);
         }
 
+        public bool HideReadOnlyValues
+        {
+            get { return mHideReadOnlyValues; }
+            set
+            {
+                mHideReadOnlyValues = value;
+                if (value == true)
+                {
+                    DeleteReadOnlyRows();
+                    //propertyGrid1.RetrieveFields();
+                    //propertyGrid1.UpdateRows();
+                    //propertyGrid1.Refresh();
+                    //propertyGrid1.UpdateData();
+                    //propertyGrid1.RefreshEditor();
+                    //propertyGrid1.Refresh();
+                }
+            }
+        }
+
+        private bool mHideReadOnlyValues = false;
+
         private PropertiesTabCustomize customize;
 
         public object SelectedObject { get { return customize.SelectedObject; } set { customize.SelectedObject = value; } }
@@ -40,11 +62,16 @@ namespace NGEd
         public void RetrieveFields()
         {
             customize.PropertyGridControl.RetrieveFields();
+
+            if (HideReadOnlyValues)
+                this.DeleteReadOnlyRows();
         }
 
         public void UpdateRows()
         {
             customize.PropertyGridControl.UpdateRows();
+            if (HideReadOnlyValues)
+                this.DeleteReadOnlyRows();
         }
 
         private void propertyGrid1_CellValueChanged(object sender, CellValueChangedEventArgs e)
@@ -52,12 +79,18 @@ namespace NGEd
             //log.DebugPrintf(System.Reflection.MethodBase.GetCurrentMethod().Name);
             if (this.propertyGrid1 != null)
                 this.propertyGrid1.Refresh();
+
+            if (HideReadOnlyValues)
+                this.DeleteReadOnlyRows();
         }
 
         private void propertyGrid1_StateChanged(object sender, EventArgs e)
         {
             //log.Warning(System.Reflection.MethodBase.GetCurrentMethod().Name);
             _UpdatePropGrid(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+            if (HideReadOnlyValues)
+                this.DeleteReadOnlyRows();
         }
 
         private void _UpdatePropGrid(string _name)
@@ -70,6 +103,40 @@ namespace NGEd
         {
             if (this.propertyGrid1 != null)
                 this.propertyGrid1.Refresh();
+
+            if (HideReadOnlyValues)
+                this.DeleteReadOnlyRows();
+        }
+
+        internal void DeleteReadOnlyRows()
+        {
+            foreach (DevExpress.XtraVerticalGrid.Rows.BaseRow row in this.propertyGrid1.Rows)
+            {
+                //if (row == null) return;
+                //if (row.Properties.ReadOnly == true)
+                //    row.Visible = false; ;
+                if (row is EditorRow)
+                {
+                    //XtraMessageBox.Show("3331", "2");
+                }
+                else if (row is CategoryRow)
+                {
+                    foreach (BaseRow childRow in (row as CategoryRow).ChildRows)
+                    {
+                        if (childRow.Properties.IsSourceReadOnly == true)
+                        {
+                            //XtraMessageBox.Show(childRow.Name, "ReadOnly");
+                            childRow.Visible = false;
+                        }
+                        else
+                        {
+                            //childRow.HasChildren.ToString() - будет false
+                            //XtraMessageBox.Show(childRow.Properties.IsSourceReadOnly.ToString(), "!Not read only");
+                        }
+                    }
+                }
+
+            }
         }
     }
 

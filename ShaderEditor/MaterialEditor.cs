@@ -25,6 +25,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using Graph;
 using System.Collections.Generic;
+using DevExpress.XtraVerticalGrid.Rows;
+using DevExpress.XtraVerticalGrid;
+using DevExpress.XtraVerticalGrid.ViewInfo;
+using System.ComponentModel;
 
 namespace NGEd
 {
@@ -69,6 +73,7 @@ namespace NGEd
             if (obj == null)
                 return;
 
+            // TODO: сделать возможность убрать объект
             SelectObjProp(obj);
         }
 
@@ -206,12 +211,17 @@ namespace NGEd
             //propWindow.propertyGrid1.Refresh();
         }
 
+
         private void SelectObjProp(Object _node)
         {
             propWindow.propertyGrid1.SelectedObject = _node;
+
             propWindow.propertyGrid1.RetrieveFields();
             propWindow.propertyGrid1.UpdateRows();
             propWindow.propertyGrid1.Refresh();
+
+
+            propWindow.HideReadOnlyValues = barCheckItem1.Checked;
         }
 
         //private EditorState editorState = null;
@@ -327,6 +337,11 @@ namespace NGEd
 
             graphControl.GraphControl.SetGraphNodes((List<Node>)res);
 
+        }
+
+        private void barCheckItem1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            propWindow.HideReadOnlyValues = barCheckItem1.Checked;
         }
     }
 }
