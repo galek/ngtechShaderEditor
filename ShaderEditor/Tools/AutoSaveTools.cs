@@ -12,9 +12,9 @@
 */
 
 using DevExpress.XtraEditors;
+
 //using EngineCLR;
 using System;
-using System.IO;
 using System.Windows.Forms;
 
 namespace NGEd.Tools

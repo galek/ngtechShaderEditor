@@ -17,9 +17,9 @@ namespace NGEd
     using DevExpress.XtraEditors.Repository;
     using DevExpress.XtraVerticalGrid.Events;
     using DevExpress.XtraVerticalGrid.Rows;
+
     //using EngineCLR;
     using System;
-    using System.Windows.Forms;
 
     // TODO: Необходимо при изменении свойства, обновлять propgrid в реальном времени
     public partial class PropertiesTab : DevExpress.XtraEditors.PanelControl
@@ -110,10 +110,8 @@ namespace NGEd
                         {
                             childRow.Visible = false;
                         }
-
                     }
                 }
-
             }
         }
     }
@@ -254,7 +252,6 @@ namespace NGEd
 
         private void __Edit_ParseEditValueVectors(object sender, ConvertEditValueEventArgs e)
         {
-          
         }
 
         private void _repositoryItemSpinEditVectors_EditValueChanged(object sender, EventArgs e)

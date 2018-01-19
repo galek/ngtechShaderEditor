@@ -507,7 +507,11 @@ namespace Graph
 
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public IEnumerable<Node> Nodes { get { return graphNodes; } }
-        public void SetGraphNodes(List<Node> _graphNodes) { graphNodes = _graphNodes; Refresh(); }
+
+        public void SetGraphNodes(List<Node> _graphNodes)
+        {
+            graphNodes = _graphNodes; Refresh();
+        }
 
         #endregion Nodes
 

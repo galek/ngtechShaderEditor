@@ -12,23 +12,15 @@
 */
 
 using DevExpress.XtraEditors;
-using NGEd.Tools;
-using ShaderEditor.MaterialNodes;
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
 using Graph;
+using NGEd.Tools;
+using System;
 using System.Collections.Generic;
-using DevExpress.XtraVerticalGrid.Rows;
-using DevExpress.XtraVerticalGrid;
-using DevExpress.XtraVerticalGrid.ViewInfo;
-using System.ComponentModel;
+using System.Drawing;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 namespace NGEd
 {
@@ -56,7 +48,6 @@ namespace NGEd
 
             graphControl.GraphControl.ShowElementMenu += new EventHandler<Graph.AcceptElementLocationEventArgs>(OnShowElementMenu);
             graphControl.GraphControl.FocusChanged += new EventHandler<Graph.ElementEventArgs>(GraphControl_Click);
-
 
             DockingUtils.CreateEditorFolderIfNotExist();
             DockingUtils.LoadLayoutConfiguration(_LayoutName, dockManager1);
@@ -188,9 +179,8 @@ namespace NGEd
         }
 
         private void _SelectMaterial(string _materialName)
-        { 
+        {
         }
-
 
         private void SelectObjProp(Object _node)
         {
@@ -200,12 +190,12 @@ namespace NGEd
             propWindow.propertyGrid1.UpdateRows();
             propWindow.propertyGrid1.Refresh();
 
-
             propWindow.HideReadOnlyValues = barCheckItem1.Checked;
         }
 
         //private EditorState editorState = null;
         private PropertiesTab propWindow = null;
+
         private NGEd.FormComponents.NodeComponent graphControl = null;
 
         private void barButtonItem8_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -287,7 +277,6 @@ namespace NGEd
             {
                 fs.Close();
             }
-
         }
 
         private void barButtonItem12_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -300,7 +289,7 @@ namespace NGEd
             {
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                // Deserialize the hashtable from the file and 
+                // Deserialize the hashtable from the file and
                 // assign the reference to the local variable.
                 res = formatter.Deserialize(fs);
             }
@@ -316,7 +305,6 @@ namespace NGEd
             }
 
             graphControl.GraphControl.SetGraphNodes((List<Node>)res);
-
         }
 
         private void barCheckItem1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
