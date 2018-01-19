@@ -99,6 +99,7 @@ namespace Graph
     public class Node : IElement
     {
         public string Title { get { return titleItem.Title; } set { titleItem.Title = value; } }
+        public string Comments { get { return commentItem.Title; } set { commentItem.Title = value; } }
 
         #region Collapsed
 
@@ -117,7 +118,10 @@ namespace Graph
                 var oldValue = Collapsed;
                 internalCollapsed = value;
                 if (Collapsed != oldValue)
+                {
                     titleItem.ForceResize();
+                    commentItem.ForceResize();
+                }
             }
         }
 
@@ -143,12 +147,14 @@ namespace Graph
         internal readonly List<NodeConnector> outputConnectors = new List<NodeConnector>();
         internal readonly List<NodeConnection> connections = new List<NodeConnection>();
         internal readonly NodeTitleItem titleItem = new NodeTitleItem();
+        internal readonly NodeTitleItem commentItem = new NodeTitleItem();
         private readonly List<NodeItem> nodeItems = new List<NodeItem>();
 
         public Node(string title)
         {
             this.Title = title;
             titleItem.Node = this;
+            commentItem.Node = this;
         }
 
         public void AddItem(NodeItem item)
