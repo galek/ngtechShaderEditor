@@ -163,9 +163,6 @@ namespace NGEd
 
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            //if (editorState.GetEngine == null)
-            //    return;
-
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.InitialDirectory = "../";
             openFileDialog1.Filter = "Material files (*.mat)|*.mat|All files (*.*)|*.*";
@@ -180,6 +177,26 @@ namespace NGEd
 
         private void _SelectMaterial(string _materialName)
         {
+            // Open the file containing the data that you want to deserialize.
+            FileStream fs = new FileStream(_materialName, FileMode.Open);
+
+            object res = null;
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                res = formatter.Deserialize(fs);
+            }
+            catch (SerializationException er)
+            {
+                MessageBox.Show("Failed to deserialize. Reason: " + er.Message, "Error", MessageBoxButtons.OK);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            graphControl.GraphControl.SetGraphNodes((List<Node>)res);
         }
 
         private void SelectObjProp(Object _node)
@@ -231,16 +248,30 @@ namespace NGEd
 
         private void barButtonItem10_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            //SaveFileDialog openFileDialog1 = new SaveFileDialog();
-            //openFileDialog1.InitialDirectory = "../";
-            //openFileDialog1.Filter = "Material file (*.mat)|*.mat|All files (*.*)|*.*";
-            //openFileDialog1.FilterIndex = 2;
-            //openFileDialog1.RestoreDirectory = false;
-            //if ((openFileDialog1.ShowDialog() == DialogResult.OK) && (openFileDialog1.FileName != ""))
-            //{
-            //    SaveLoadHelper.SaveEngineFormat(openFileDialog1.FileName, SaveLoadHelper.Type.MATERIAL);
-            //}
-            //openFileDialog1.Dispose();
+            SaveFileDialog openFileDialog1 = new SaveFileDialog();
+            openFileDialog1.InitialDirectory = "../";
+            openFileDialog1.Filter = "Material file (*.mat)|*.mat|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = false;
+            if ((openFileDialog1.ShowDialog() == DialogResult.OK) && (openFileDialog1.FileName != ""))
+            {
+                FileStream fs = new FileStream(openFileDialog1.FileName, FileMode.Create);
+                BinaryFormatter formatter = new BinaryFormatter();
+                try
+                {
+                    formatter.Serialize(fs, graphControl.GraphControl.Nodes);
+                }
+                catch (SerializationException er)
+                {
+                    MessageBox.Show("Failed to serialize. Reason: " + er.Message, "Error", MessageBoxButtons.OK);
+                    throw;
+                }
+                finally
+                {
+                    fs.Close();
+                }
+            }
+            openFileDialog1.Dispose();
         }
 
         private void barButtonItem11_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -261,50 +292,12 @@ namespace NGEd
             graphControl.GraphControl.AddNode(someNode);
              */
 
-            FileStream fs = new FileStream("DataFile.dat", FileMode.Create);
-            BinaryFormatter formatter = new BinaryFormatter();
-            try
-            {
-                formatter.Serialize(fs, graphControl.GraphControl.Nodes);
-            }
-            catch (SerializationException er)
-            {
-                Console.WriteLine("Failed to serialize. Reason: " + er.Message);
-                MessageBox.Show(er.Message, "1", MessageBoxButtons.OK);
-                throw;
-            }
-            finally
-            {
-                fs.Close();
-            }
+
         }
 
         private void barButtonItem12_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            // Open the file containing the data that you want to deserialize.
-            FileStream fs = new FileStream("DataFile.dat", FileMode.Open);
 
-            object res = null;
-            try
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-
-                // Deserialize the hashtable from the file and
-                // assign the reference to the local variable.
-                res = formatter.Deserialize(fs);
-            }
-            catch (SerializationException er)
-            {
-                Console.WriteLine("Failed to deserialize. Reason: " + er.Message);
-                MessageBox.Show(er.Message, "1", MessageBoxButtons.OK);
-                throw;
-            }
-            finally
-            {
-                fs.Close();
-            }
-
-            graphControl.GraphControl.SetGraphNodes((List<Node>)res);
         }
 
         private void barCheckItem1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
