@@ -13,9 +13,11 @@
 
 using DevExpress.XtraEditors;
 using NGEd.Tools;
+using ShaderEditor.MaterialNodes;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace NGEd
 {
@@ -233,6 +235,13 @@ namespace NGEd
             //    SaveLoadHelper.SaveEngineFormat(openFileDialog1.FileName, SaveLoadHelper.Type.MATERIAL);
             //}
             //openFileDialog1.Dispose();
+        }
+
+        private void barButtonItem11_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            var obj = new MaterialBaseNode();
+            var json = JsonConvert.SerializeObject(obj);
+            MessageBox.Show(json, "1", MessageBoxButtons.OK);
         }
     }
 }
