@@ -51,11 +51,6 @@ namespace NGEd
             propWindow.Parent = dockPanel3;
             propWindow.Show();
             /**/
-            //var viewport = new ViewPort();
-            //propWindow.Parent = dockPanel1;
-            //viewport.Text = "Material Preview";
-            //viewport.InitEngine();
-
             _InitMaterialNode();
             _RegisterAllNodes();
 
@@ -76,11 +71,6 @@ namespace NGEd
             // TODO: сделать возможность убрать объект
             SelectObjProp(obj);
         }
-
-        //public void SetState(EditorState _state)
-        //{
-        //    editorState = _state;
-        //}
 
         private void _InitMaterialNode()
         {
@@ -198,17 +188,7 @@ namespace NGEd
         }
 
         private void _SelectMaterial(string _materialName)
-        {
-            //if (_materialName == string.Empty ||
-            //        editorState.GetEngine == null)
-            //    return;
-
-            //EngineCLR.log.DebugPrintf("Loaded material " + _materialName + " to editor");
-
-            //propWindow.propertyGrid1.SelectedObject = EngineCLR.MaterialsHelper.UpdateMaterialVars(_materialName);
-            //propWindow.propertyGrid1.RetrieveFields();
-            //propWindow.propertyGrid1.UpdateRows();
-            //propWindow.propertyGrid1.Refresh();
+        { 
         }
 
 

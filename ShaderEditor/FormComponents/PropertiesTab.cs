@@ -43,12 +43,6 @@ namespace NGEd
                 if (value == true)
                 {
                     DeleteReadOnlyRows();
-                    //propertyGrid1.RetrieveFields();
-                    //propertyGrid1.UpdateRows();
-                    //propertyGrid1.Refresh();
-                    //propertyGrid1.UpdateData();
-                    //propertyGrid1.RefreshEditor();
-                    //propertyGrid1.Refresh();
                 }
             }
         }
@@ -76,7 +70,6 @@ namespace NGEd
 
         private void propertyGrid1_CellValueChanged(object sender, CellValueChangedEventArgs e)
         {
-            //log.DebugPrintf(System.Reflection.MethodBase.GetCurrentMethod().Name);
             if (this.propertyGrid1 != null)
                 this.propertyGrid1.Refresh();
 
@@ -86,7 +79,6 @@ namespace NGEd
 
         private void propertyGrid1_StateChanged(object sender, EventArgs e)
         {
-            //log.Warning(System.Reflection.MethodBase.GetCurrentMethod().Name);
             _UpdatePropGrid(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
             if (HideReadOnlyValues)
@@ -95,8 +87,6 @@ namespace NGEd
 
         private void _UpdatePropGrid(string _name)
         {
-            //log.DebugPrintf(_name);
-            //api.EDITOR_CheckWhatWasModificated();
         }
 
         private void propertyGrid1_FocusedRecordCellChanged(object sender, IndexChangedEventArgs e)
@@ -112,27 +102,15 @@ namespace NGEd
         {
             foreach (DevExpress.XtraVerticalGrid.Rows.BaseRow row in this.propertyGrid1.Rows)
             {
-                //if (row == null) return;
-                //if (row.Properties.ReadOnly == true)
-                //    row.Visible = false; ;
-                if (row is EditorRow)
-                {
-                    //XtraMessageBox.Show("3331", "2");
-                }
-                else if (row is CategoryRow)
+                if (row is CategoryRow)
                 {
                     foreach (BaseRow childRow in (row as CategoryRow).ChildRows)
                     {
                         if (childRow.Properties.IsSourceReadOnly == true)
                         {
-                            //XtraMessageBox.Show(childRow.Name, "ReadOnly");
                             childRow.Visible = false;
                         }
-                        else
-                        {
-                            //childRow.HasChildren.ToString() - будет false
-                            //XtraMessageBox.Show(childRow.Properties.IsSourceReadOnly.ToString(), "!Not read only");
-                        }
+
                     }
                 }
 
@@ -276,20 +254,7 @@ namespace NGEd
 
         private void __Edit_ParseEditValueVectors(object sender, ConvertEditValueEventArgs e)
         {
-            //if (e.Value is EngineCLR.MVec3)
-            //{
-            //    EngineCLR.MVec3 t = e.Value as EngineCLR.MVec3;
-            //    {
-            //        e.Value = t.ToSingle();
-            //    }
-
-            //}
-            //else if (e.Value is EngineCLR.MVec4)
-            //{
-            //    throw new Exception("2");
-            //}
-            //else
-            //    throw new Exception("3");
+          
         }
 
         private void _repositoryItemSpinEditVectors_EditValueChanged(object sender, EventArgs e)
