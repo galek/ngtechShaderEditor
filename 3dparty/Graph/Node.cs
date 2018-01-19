@@ -95,6 +95,7 @@ namespace Graph
         public Point Position { get; private set; }
     }
 
+    [Serializable]
     public class Node : IElement
     {
         public string Title { get { return titleItem.Title; } set { titleItem.Title = value; } }

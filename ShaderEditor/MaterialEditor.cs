@@ -18,6 +18,11 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace NGEd
 {
@@ -96,35 +101,35 @@ namespace NGEd
         private void OnShowElementMenu(object sender, Graph.AcceptElementLocationEventArgs e)
         {
             XtraMessageBox.Show("!");
-            //if (e.Element == null)
-            //{
-            //    // Show a test menu for when you click on nothing
-            //    testMenuItem.Text = "(clicked on nothing)";
-            //    nodeMenu.Show(e.Position);
-            //    e.Cancel = false;
-            //}
-            //else
-            //if (e.Element is Graph.Node)
-            //{
-            //    // Show a test menu for a node
-            //    testMenuItem.Text = ((Graph.Node)e.Element).Title;
-            //    nodeMenu.Show(e.Position);
-            //    e.Cancel = false;
-            //}
-            //else
-            //if (e.Element is Graph.NodeItem)
-            //{
-            //    // Show a test menu for a nodeItem
-            //    testMenuItem.Text = e.Element.GetType().Name;
-            //    nodeMenu.Show(e.Position);
-            //    e.Cancel = false;
-            //}
-            //else
-            //{
-            //    // if you don't want to show a menu for this item (but perhaps show a menu for something more higher up)
-            //    // then you can cancel the event
-            //    e.Cancel = true;
-            //}
+            if (e.Element == null)
+            {
+                // Show a test menu for when you click on nothing
+                //testMenuItem.Text = "(clicked on nothing)";
+                //nodeMenu.Show(e.Position);
+                e.Cancel = false;
+            }
+            else
+            if (e.Element is Graph.Node)
+            {
+                // Show a test menu for a node
+                //testMenuItem.Text = ((Graph.Node)e.Element).Title;
+                //nodeMenu.Show(e.Position);
+                e.Cancel = false;
+            }
+            else
+            if (e.Element is Graph.NodeItem)
+            {
+                // Show a test menu for a nodeItem
+                //testMenuItem.Text = e.Element.GetType().Name;
+                //nodeMenu.Show(e.Position);
+                e.Cancel = false;
+            }
+            else
+            {
+                // if you don't want to show a menu for this item (but perhaps show a menu for something more higher up)
+                // then you can cancel the event
+                e.Cancel = true;
+            }
         }
 
         /// <summary>
@@ -239,9 +244,41 @@ namespace NGEd
 
         private void barButtonItem11_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            var obj = new MaterialBaseNode();
-            var json = JsonConvert.SerializeObject(obj);
-            MessageBox.Show(json, "1", MessageBoxButtons.OK);
+            //var obj = new { graphControl.GraphControl.Nodes };
+            //var json = JsonConvert.SerializeObject(graphControl);
+            //MessageBox.Show(json, "1", MessageBoxButtons.OK);
+
+            //JsonConvert.DeserializeObject<MaterialBaseNode>(json);
+            /*
+                // Tests
+            someNode = new Graph.Node("My Title");
+            someNode.Location = new Point(500, 100);
+            var check1Item = new Graph.Items.NodeCheckboxItem("Check 1", true, true) { Tag = 31337 };
+            someNode.AddItem(check1Item);
+            someNode.AddItem(new Graph.Items.NodeCheckboxItem("Check 2", true, true) { Tag = 42f });
+
+            graphControl.GraphControl.AddNode(someNode);
+             */
+
+            FileStream fs = new FileStream("DataFile.dat", FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+            try
+            {
+                
+
+                formatter.Serialize(fs, graphControl.GraphControl.Nodes);
+            }
+            catch (SerializationException er)
+            {
+                Console.WriteLine("Failed to serialize. Reason: " + er.Message);
+                MessageBox.Show(er.Message, "1", MessageBoxButtons.OK);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
         }
     }
 }

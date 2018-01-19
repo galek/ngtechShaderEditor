@@ -51,6 +51,7 @@ namespace Graph
         public NodeItem Item { get; private set; }
     }
 
+    [Serializable]
     public abstract class NodeItem : IElement
     {
         public NodeItem()

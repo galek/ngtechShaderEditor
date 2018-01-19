@@ -41,6 +41,7 @@ using System.Drawing;
 
 namespace Graph.Items
 {
+    [Serializable]
     internal sealed class NodeTitleItem : NodeItem
     {
         #region Text

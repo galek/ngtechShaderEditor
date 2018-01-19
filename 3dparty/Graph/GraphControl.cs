@@ -51,6 +51,7 @@ namespace Graph
 {
     public delegate bool AcceptElement(IElement element);
 
+    [Serializable]
     public partial class GraphControl : Control
     {
         #region Constructor

@@ -42,6 +42,7 @@ using System.Drawing;
 
 namespace Graph
 {
+    [Serializable]
     public sealed class NodeConnectionEventArgs : EventArgs
     {
         public NodeConnectionEventArgs(NodeConnection connection)
@@ -59,6 +60,7 @@ namespace Graph
         public NodeConnection Connection { get; private set; }
     }
 
+    [Serializable]
     public sealed class AcceptNodeConnectionEventArgs : CancelEventArgs
     {
         public AcceptNodeConnectionEventArgs(NodeConnection connection)
@@ -74,6 +76,7 @@ namespace Graph
         public NodeConnection Connection { get; private set; }
     }
 
+    [Serializable]
     public class NodeConnection : IElement
     {
         public event EventHandler<NodeConnectionEventArgs> DoubleClick;

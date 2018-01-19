@@ -41,6 +41,7 @@ using System.Drawing;
 
 namespace Graph.Items
 {
+    [Serializable]
     public sealed class NodeCheckboxItem : NodeItem
     {
         public NodeCheckboxItem(string text, bool inputEnabled, bool outputEnabled) :

@@ -11,8 +11,11 @@
 * NG Games Ltd. at http://nggames.com/
 */
 
+using System;
+
 namespace NGEd.FormComponents
 {
+    [Serializable]
     public partial class NodeComponent : DevExpress.XtraEditors.PanelControl
     {
         public NodeComponent()

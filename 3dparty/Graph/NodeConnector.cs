@@ -36,11 +36,13 @@
 
 #endregion License
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
 namespace Graph
 {
+    [Serializable]
     public abstract class NodeConnector : IElement
     {
         public NodeConnector(NodeItem item, bool enabled)
@@ -101,6 +103,7 @@ namespace Graph
         public abstract ElementType ElementType { get; }
     }
 
+    [Serializable]
     public sealed class NodeInputConnector : NodeConnector
     {
         public NodeInputConnector(NodeItem item, bool enabled) : base(item, enabled)
@@ -110,6 +113,7 @@ namespace Graph
         public override ElementType ElementType { get { return ElementType.InputConnector; } }
     }
 
+    [Serializable]
     public sealed class NodeOutputConnector : NodeConnector
     {
         public NodeOutputConnector(NodeItem item, bool enabled) : base(item, enabled)
