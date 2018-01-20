@@ -102,7 +102,7 @@ namespace NGEd
                     this.DeleteReadOnlyRows();
             }
             catch(Exception er) {
-                Debug.Assert(er.what());
+                Debug.Write(er.Message);
             }
         }
 

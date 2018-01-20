@@ -94,30 +94,12 @@ namespace NGEd
             graphControl.GraphControl.AddNode(someNode);
 
 
-            Test();
+            _RegisterNodes();
         }
 
-        void Test()
-        {
-            // Tests
-            var someNode = new Graph.Node("My Title");
-            someNode.Location = new Point(500, 100);
-            var check1Item = new Graph.Items.NodeCheckboxItem("Check 1", true, true) { Tag = 31337 };
-            someNode.AddItem(check1Item);
-            someNode.AddItem(new Graph.Items.NodeCheckboxItem("Check 2", true, true) { Tag = 42f });
 
-            graphControl.GraphControl.AddNode(someNode);
-            
-            RegisterNodes();
 
-            //graphControl.GraphControl.ConnectionAdded += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdded);
-            //graphControl.GraphControl.ConnectionAdding += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdding);
-            //graphControl.GraphControl.ConnectionRemoving += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionRemoved);
-
-            //graphControl.GraphControl.Connect(colorItem, check1Item);
-        }
-
-        void RegisterNodes()
+        private void _RegisterNodes()
         {
             // TODO: create list and generate this list
             _RegisterNode<ColorNode>("ColorNode", "ColorNode");
@@ -150,7 +132,7 @@ namespace NGEd
             if (e.Element == null)
             {
                 // similiar as MousePosition.X
-                MessageBox.Show(string.Format("EPos X: {0} Y: {1}", e.Position.X, e.Position.Y));
+                //MessageBox.Show(string.Format("EPos X: {0} Y: {1}", e.Position.X, e.Position.Y));
 
                 LastClickPositionHelper.XPos = MousePosition.X;
                 LastClickPositionHelper.YPos = MousePosition.Y;
