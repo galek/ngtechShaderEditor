@@ -101,7 +101,8 @@ namespace NGEd
                 if (HideReadOnlyValues)
                     this.DeleteReadOnlyRows();
             }
-            catch(Exception er) {
+            catch (Exception er)
+            {
                 Debug.Write(er.Message);
             }
         }

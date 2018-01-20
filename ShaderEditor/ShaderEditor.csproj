@@ -183,6 +183,7 @@
       <DependentUpon>MaterialEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="MaterialNodes\MaterialBaseNode.cs" />
+    <Compile Include="Nodes\BaseNode.cs" />
     <Compile Include="Nodes\ColorNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

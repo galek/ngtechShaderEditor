@@ -11,22 +11,21 @@
 * NG Games Ltd. at http://nggames.com/
 */
 
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using Graph;
 using NGEd.Tools;
+using ShaderEditor.Nodes;
+using ShaderEditor.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using Graph.Items;
-using ShaderEditor.Nodes;
-using DevExpress.XtraBars;
-using ShaderEditor.Tools;
-using System.Reflection;
-using System.Globalization;
 
 namespace NGEd
 {
@@ -54,9 +53,15 @@ namespace NGEd
 
             graphControl.GraphControl.ShowElementMenu += new EventHandler<Graph.AcceptElementLocationEventArgs>(OnShowElementMenu);
             graphControl.GraphControl.FocusChanged += new EventHandler<Graph.ElementEventArgs>(GraphControl_Click);
+            graphControl.GraphControl.ConnectionAdded += GraphControl_ConnectionAdded;
 
             DockingUtils.CreateEditorFolderIfNotExist();
             DockingUtils.LoadLayoutConfiguration(_LayoutName, dockManager1);
+        }
+
+        private void GraphControl_ConnectionAdded(object sender, AcceptNodeConnectionEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
         private void GraphControl_Click(object sender, ElementEventArgs e)
@@ -93,11 +98,8 @@ namespace NGEd
 
             graphControl.GraphControl.AddNode(someNode);
 
-
             _RegisterNodes();
         }
-
-
 
         private void _RegisterNodes()
         {
@@ -119,12 +121,10 @@ namespace NGEd
                     BindingFlags.Public |
                     BindingFlags.Instance |
                     BindingFlags.OptionalParamBinding, null, new object[] { this, LastClickPositionHelper.XPos, LastClickPositionHelper.YPos }, CultureInfo.CurrentCulture);
-
                });
         }
 
         public GraphControl GraphControlFormComp { get { return graphControl.GraphControl; } }
-
 
         private void OnShowElementMenu(object sender, Graph.AcceptElementLocationEventArgs e)
         {
@@ -323,13 +323,10 @@ namespace NGEd
 
             graphControl.GraphControl.AddNode(someNode);
              */
-
-
         }
 
         private void barButtonItem12_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-
         }
 
         private void barCheckItem1_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NGEd;
-using Graph;
+﻿using Graph;
 using Graph.Items;
+using NGEd;
+using System;
 using System.Drawing;
-using System.Windows;
 
 namespace ShaderEditor.Nodes
 {
-    public class ColorNode : Node
+    public class ColorNode : BaseNode
     {
         public ColorNode(MaterialEditor _ed, int x, int y) :
-      base("Color")
+      base("Color", _ed, x, y)
         {
-            _InitNode(x, y);
-            _ed.GraphControlFormComp.AddNode(this);
-
         }
 
-        private void _InitNode(int x, int y)
+        public override void _InitNode(int x, int y)
         {
             //MessageBox.Show(string.Format("_InitNode X: {0} Y: {1}", x, y));
 
@@ -46,9 +38,7 @@ namespace ShaderEditor.Nodes
             this.AddItem(greenChannel);
             this.AddItem(blueChannel);
 
-            colorItem.Clicked += new EventHandler<NodeItemEventArgs>(OnColClicked);
             this.AddItem(colorItem);
         }
-
     }
 }
