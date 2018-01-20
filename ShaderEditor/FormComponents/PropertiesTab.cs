@@ -20,6 +20,7 @@ namespace NGEd
 
     //using EngineCLR;
     using System;
+    using System.Diagnostics;
 
     // TODO: Необходимо при изменении свойства, обновлять propgrid в реальном времени
     public partial class PropertiesTab : DevExpress.XtraEditors.PanelControl
@@ -92,11 +93,17 @@ namespace NGEd
 
         private void propertyGrid1_FocusedRecordCellChanged(object sender, IndexChangedEventArgs e)
         {
-            if (this.propertyGrid1 != null)
-                this.propertyGrid1.Refresh();
+            try
+            {
+                if (this.propertyGrid1 != null)
+                    this.propertyGrid1.Refresh();
 
-            if (HideReadOnlyValues)
-                this.DeleteReadOnlyRows();
+                if (HideReadOnlyValues)
+                    this.DeleteReadOnlyRows();
+            }
+            catch(Exception er) {
+                Debug.Assert(er.what());
+            }
         }
 
         internal void DeleteReadOnlyRows()
