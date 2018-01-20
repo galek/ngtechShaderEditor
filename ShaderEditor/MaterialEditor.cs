@@ -49,7 +49,6 @@ namespace NGEd
             propWindow.Show();
             /**/
             _InitMaterialNode();
-            _RegisterAllNodes();
 
             graphControl.GraphControl.ShowElementMenu += new EventHandler<Graph.AcceptElementLocationEventArgs>(OnShowElementMenu);
             graphControl.GraphControl.FocusChanged += new EventHandler<Graph.ElementEventArgs>(GraphControl_Click);
@@ -115,7 +114,6 @@ namespace NGEd
             item.ItemClick +=
                new ItemClickEventHandler(delegate (Object o, ItemClickEventArgs a)
                {
-                   // TODO: BugFix: incorrect value Xpos and YPos - указывает старые значения
                    Activator.CreateInstance(typeof(T),
                     BindingFlags.CreateInstance |
                     BindingFlags.Public |
@@ -134,8 +132,9 @@ namespace NGEd
                 // similiar as MousePosition.X
                 //MessageBox.Show(string.Format("EPos X: {0} Y: {1}", e.Position.X, e.Position.Y));
 
-                LastClickPositionHelper.XPos = MousePosition.X;
-                LastClickPositionHelper.YPos = MousePosition.Y;
+
+                LastClickPositionHelper.XPos = graphControl.PointToClient(Cursor.Position).X;
+                LastClickPositionHelper.YPos = graphControl.PointToClient(Cursor.Position).Y;
 
                 // Show a test menu for when you click on nothing
                 nodeMenu.ShowPopup(e.Position);
@@ -161,17 +160,6 @@ namespace NGEd
                 // then you can cancel the event
                 e.Cancel = true;
             }
-        }
-
-        /// <summary>
-        /// TODO: REWRITE
-        /// </summary>
-        private void _RegisterAllNodes()
-        {
-            ToolStripMenuItem item = new ToolStripMenuItem();
-            item.Click += new EventHandler(SomeNode_TestMouseDown);
-            item.Text = "Sub-item 1";
-            //nodeMenu.Items.Add(item);
         }
 
         /// <summary>

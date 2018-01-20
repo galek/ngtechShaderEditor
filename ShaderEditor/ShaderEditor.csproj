@@ -176,6 +176,7 @@
     <Compile Include="FormComponents\ViewPort.Designer.cs">
       <DependentUpon>ViewPort.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\FSM.cs" />
     <Compile Include="MaterialEditor.cs">
       <SubType>Form</SubType>
     </Compile>
