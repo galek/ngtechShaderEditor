@@ -189,6 +189,7 @@
     <Compile Include="ShaderFormat\BaseShaderFormat.cs" />
     <Compile Include="Tools\AutoSaveTools.cs" />
     <Compile Include="Tools\DockingUtils.cs" />
+    <Compile Include="Tools\LastClickPositionHelperC.cs" />
     <Compile Include="Tools\Utils.cs" />
     <EmbeddedResource Include="FormComponents\MainProperties.resx">
       <DependentUpon>MainProperties.cs</DependentUpon>

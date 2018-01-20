@@ -22,6 +22,11 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Graph.Items;
+using ShaderEditor.Nodes;
+using DevExpress.XtraBars;
+using ShaderEditor.Tools;
+using System.Reflection;
+using System.Globalization;
 
 namespace NGEd
 {
@@ -92,10 +97,6 @@ namespace NGEd
             Test();
         }
 
-        public List<Node> RegistredNodes { get { return m_RegisteredNodes; } }
-
-        private List<Node> m_RegisteredNodes = new List<Node>();
-
         void Test()
         {
             // Tests
@@ -106,44 +107,70 @@ namespace NGEd
             someNode.AddItem(new Graph.Items.NodeCheckboxItem("Check 2", true, true) { Tag = 42f });
 
             graphControl.GraphControl.AddNode(someNode);
+            
+            RegisterNodes();
 
-
-            new ColorNode(RegistredNodes);
-
-            graphControl.GraphControl.ConnectionAdded += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdded);
-            graphControl.GraphControl.ConnectionAdding += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdding);
-            graphControl.GraphControl.ConnectionRemoving += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionRemoved);
-            graphControl.GraphControl.ShowElementMenu += new EventHandler<AcceptElementLocationEventArgs>(OnShowElementMenu);
+            //graphControl.GraphControl.ConnectionAdded += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdded);
+            //graphControl.GraphControl.ConnectionAdding += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdding);
+            //graphControl.GraphControl.ConnectionRemoving += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionRemoved);
 
             //graphControl.GraphControl.Connect(colorItem, check1Item);
         }
 
+        void RegisterNodes()
+        {
+            // TODO: create list and generate this list
+            _RegisterNode<ColorNode>("ColorNode", "ColorNode");
+            _RegisterNode<ColorNode>("ColorNode2", "ColorNode23");
+        }
+
+        private void _RegisterNode<T>(string _caption, string _name)
+        {
+            BarButtonItem item = new BarButtonItem() { Caption = _caption, Id = 0, ImageIndex = 0, Name = _name };
+            nodeMenu.ItemLinks.Add(item);
+            item.ItemClick +=
+               new ItemClickEventHandler(delegate (Object o, ItemClickEventArgs a)
+               {
+                   // TODO: BugFix: incorrect value Xpos and YPos - указывает старые значения
+                   Activator.CreateInstance(typeof(T),
+                    BindingFlags.CreateInstance |
+                    BindingFlags.Public |
+                    BindingFlags.Instance |
+                    BindingFlags.OptionalParamBinding, null, new object[] { this, LastClickPositionHelper.XPos, LastClickPositionHelper.YPos }, CultureInfo.CurrentCulture);
+
+               });
+        }
+
+        public GraphControl GraphControlFormComp { get { return graphControl.GraphControl; } }
 
 
         private void OnShowElementMenu(object sender, Graph.AcceptElementLocationEventArgs e)
         {
-            XtraMessageBox.Show("!");
+            // On empty space
             if (e.Element == null)
             {
+                // similiar as MousePosition.X
+                MessageBox.Show(string.Format("EPos X: {0} Y: {1}", e.Position.X, e.Position.Y));
+
+                LastClickPositionHelper.XPos = MousePosition.X;
+                LastClickPositionHelper.YPos = MousePosition.Y;
+
                 // Show a test menu for when you click on nothing
-                //testMenuItem.Text = "(clicked on nothing)";
-                //nodeMenu.Show(e.Position);
+                nodeMenu.ShowPopup(e.Position);
                 e.Cancel = false;
             }
             else
             if (e.Element is Graph.Node)
             {
                 // Show a test menu for a node
-                //testMenuItem.Text = ((Graph.Node)e.Element).Title;
-                //nodeMenu.Show(e.Position);
+                nodeMenu.ShowPopup(e.Position);
                 e.Cancel = false;
             }
             else
             if (e.Element is Graph.NodeItem)
             {
                 // Show a test menu for a nodeItem
-                //testMenuItem.Text = e.Element.GetType().Name;
-                //nodeMenu.Show(e.Position);
+                nodeMenu.ShowPopup(e.Position);
                 e.Cancel = false;
             }
             else
@@ -332,5 +359,8 @@ namespace NGEd
         {
             this.graphControl.GraphControl.ShowGrid = barCheckItem2.Checked;
         }
+
+        public LastClickPositionHelperC LastClickPositionHelper { get { return mLastClickPositionHelper; } }
+        private LastClickPositionHelperC mLastClickPositionHelper = new LastClickPositionHelperC();
     }
 }
