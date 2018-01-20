@@ -13,41 +13,17 @@ namespace ShaderEditor.Nodes
 {
     public class ColorNode : Node
     {
-        /*
-        private ColorNode() :
-            base("Color")
-        {
-            _InitNode(200, 50);
-        }
-
-        private ColorNode(string text) :
-            base(text)
-        {
-            _InitNode(200, 50);
-            this.Title = text;
-        }
-        */
-
         public ColorNode(MaterialEditor _ed, int x, int y) :
-            base("Color")
+      base("Color")
         {
             _InitNode(x, y);
             _ed.GraphControlFormComp.AddNode(this);
 
-            //var textureNode = new Node("Texture");
-            //textureNode.Location = new Point(300, 150);
-            //var imageItem = new NodeImageItem(null/*Properties.Resources.example*/, 64, 64, false, true) { Tag = 1000f };
-            //imageItem.Clicked += new EventHandler<NodeItemEventArgs>(OnImgClicked);
-            //textureNode.AddItem(imageItem);
-            //graphControl.GraphControl.AddNode(textureNode);
-
         }
-
-        static string Test() { return ""; }
 
         private void _InitNode(int x, int y)
         {
-            MessageBox.Show(string.Format("_InitNode X: {0} Y: {1}", x, y));
+            //MessageBox.Show(string.Format("_InitNode X: {0} Y: {1}", x, y));
 
             this.Location = new System.Drawing.Point(x, y);
             var redChannel = new NodeSliderItem("R", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
@@ -72,39 +48,6 @@ namespace ShaderEditor.Nodes
 
             colorItem.Clicked += new EventHandler<NodeItemEventArgs>(OnColClicked);
             this.AddItem(colorItem);
-        }
-
-        void OnConnectionAdding(object sender, AcceptNodeConnectionEventArgs e)
-        {
-            //e.Cancel = true;
-        }
-
-        void OnImgClicked(object sender, NodeItemEventArgs e)
-        {
-            MessageBox.Show("IMAGE");
-        }
-
-        void OnColClicked(object sender, NodeItemEventArgs e)
-        {
-            MessageBox.Show("Color");
-        }
-
-        void OnConnectionRemoved(object sender, AcceptNodeConnectionEventArgs e)
-        {
-            //e.Cancel = true;
-        }
-
-        static int counter = 1;
-        void OnConnectionAdded(object sender, AcceptNodeConnectionEventArgs e)
-        {
-            //e.Cancel = true;
-            e.Connection.Name = "Connection " + counter++;
-            e.Connection.DoubleClick += new EventHandler<NodeConnectionEventArgs>(OnConnectionDoubleClick);
-        }
-
-        void OnConnectionDoubleClick(object sender, NodeConnectionEventArgs e)
-        {
-            e.Connection.Name = "Connection " + counter++;
         }
 
     }
