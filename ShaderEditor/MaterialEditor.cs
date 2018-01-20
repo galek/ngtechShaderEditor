@@ -21,6 +21,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using Graph.Items;
 
 namespace NGEd
 {
@@ -87,15 +88,37 @@ namespace NGEd
 
             graphControl.GraphControl.AddNode(someNode);
 
+
+            Test();
+        }
+
+        public List<Node> RegistredNodes { get { return m_RegisteredNodes; } }
+
+        private List<Node> m_RegisteredNodes = new List<Node>();
+
+        void Test()
+        {
             // Tests
-            someNode = new Graph.Node("My Title");
+            var someNode = new Graph.Node("My Title");
             someNode.Location = new Point(500, 100);
             var check1Item = new Graph.Items.NodeCheckboxItem("Check 1", true, true) { Tag = 31337 };
             someNode.AddItem(check1Item);
             someNode.AddItem(new Graph.Items.NodeCheckboxItem("Check 2", true, true) { Tag = 42f });
 
             graphControl.GraphControl.AddNode(someNode);
+
+
+            new ColorNode(RegistredNodes);
+
+            graphControl.GraphControl.ConnectionAdded += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdded);
+            graphControl.GraphControl.ConnectionAdding += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionAdding);
+            graphControl.GraphControl.ConnectionRemoving += new EventHandler<AcceptNodeConnectionEventArgs>(OnConnectionRemoved);
+            graphControl.GraphControl.ShowElementMenu += new EventHandler<AcceptElementLocationEventArgs>(OnShowElementMenu);
+
+            //graphControl.GraphControl.Connect(colorItem, check1Item);
         }
+
+
 
         private void OnShowElementMenu(object sender, Graph.AcceptElementLocationEventArgs e)
         {
