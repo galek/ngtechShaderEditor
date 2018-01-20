@@ -129,6 +129,7 @@ namespace Graph
 
         public bool HasNoItems { get { return nodeItems.Count == 0; } }
 
+        // TODO: Add check on Locking position
         public PointF Location { get; set; }
         public object Tag { get; set; }
 
@@ -216,5 +217,8 @@ namespace Graph
         }
 
         public ElementType ElementType { get { return ElementType.Node; } }
+        public bool Locked { get { return m_Locked; } set { m_Locked = value; } }
+
+        private bool m_Locked = false;
     }
 }
