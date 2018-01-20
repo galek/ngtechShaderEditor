@@ -16,7 +16,6 @@ using DevExpress.XtraEditors;
 using Graph;
 using NGEd.Tools;
 using ShaderEditor.Nodes;
-using ShaderEditor.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
