@@ -7,35 +7,49 @@ using NGEd;
 using Graph;
 using Graph.Items;
 using System.Drawing;
+using System.Windows;
 
 namespace ShaderEditor.Nodes
 {
     public class ColorNode : Node
     {
+        /*
         private ColorNode() :
             base("Color")
         {
-            _InitNode();
+            _InitNode(200, 50);
         }
 
         private ColorNode(string text) :
             base(text)
         {
-            _InitNode();
+            _InitNode(200, 50);
             this.Title = text;
         }
+        */
 
-
-        public ColorNode(MaterialEditor _ed) :
+        public ColorNode(MaterialEditor _ed, int x, int y) :
             base("Color")
         {
-            _InitNode();
-            _ed.RegistredNodes.Add(this);
+            _InitNode(x, y);
+            _ed.GraphControlFormComp.AddNode(this);
+
+            //var textureNode = new Node("Texture");
+            //textureNode.Location = new Point(300, 150);
+            //var imageItem = new NodeImageItem(null/*Properties.Resources.example*/, 64, 64, false, true) { Tag = 1000f };
+            //imageItem.Clicked += new EventHandler<NodeItemEventArgs>(OnImgClicked);
+            //textureNode.AddItem(imageItem);
+            //graphControl.GraphControl.AddNode(textureNode);
+
         }
 
-        private void _InitNode()
+        static string Test() { return ""; }
+
+        private void _InitNode(int x, int y)
         {
-            this.Location = new Point(200, 50);
+            MessageBox.Show(string.Format("_InitNode X: {0} Y: {1}", x, y));
+
+            this.Location = new System.Drawing.Point(x, y);
             var redChannel = new NodeSliderItem("R", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
             var greenChannel = new NodeSliderItem("G", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
             var blueChannel = new NodeSliderItem("B", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
@@ -51,24 +65,15 @@ namespace ShaderEditor.Nodes
             redChannel.ValueChanged += channelChangedDelegate;
             greenChannel.ValueChanged += channelChangedDelegate;
             blueChannel.ValueChanged += channelChangedDelegate;
-            
+
             this.AddItem(redChannel);
             this.AddItem(greenChannel);
             this.AddItem(blueChannel);
 
             colorItem.Clicked += new EventHandler<NodeItemEventArgs>(OnColClicked);
             this.AddItem(colorItem);
-            graphControl.GraphControl.AddNode(colorNode);
-
-            var textureNode = new Node("Texture");
-            textureNode.Location = new Point(300, 150);
-            var imageItem = new NodeImageItem(null/*Properties.Resources.example*/, 64, 64, false, true) { Tag = 1000f };
-            imageItem.Clicked += new EventHandler<NodeItemEventArgs>(OnImgClicked);
-            textureNode.AddItem(imageItem);
-            graphControl.GraphControl.AddNode(textureNode);
-
-          
         }
+
         void OnConnectionAdding(object sender, AcceptNodeConnectionEventArgs e)
         {
             //e.Cancel = true;
