@@ -176,6 +176,8 @@
     <Compile Include="FormComponents\ViewPort.Designer.cs">
       <DependentUpon>ViewPort.cs</DependentUpon>
     </Compile>
+    <Compile Include="Nodes\SimpleCheckNode.cs" />
+    <Compile Include="Nodes\TextureNode.cs" />
     <Compile Include="Tools\FSM.cs" />
     <Compile Include="MaterialEditor.cs">
       <SubType>Form</SubType>

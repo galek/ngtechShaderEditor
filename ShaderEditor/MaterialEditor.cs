@@ -104,7 +104,8 @@ namespace NGEd
         {
             // TODO: create list and generate this list
             _RegisterNode<ColorNode>("ColorNode", "ColorNode");
-            _RegisterNode<ColorNode>("ColorNode2", "ColorNode23");
+            _RegisterNode<TextureNode>("TextureNode", "TextureNode");
+            _RegisterNode<SimpleCheckNode>("SimpleCheckNode", "SimpleCheckNode");
         }
 
         private void _RegisterNode<T>(string _caption, string _name)
@@ -118,7 +119,7 @@ namespace NGEd
                     BindingFlags.CreateInstance |
                     BindingFlags.Public |
                     BindingFlags.Instance |
-                    BindingFlags.OptionalParamBinding, null, new object[] { this, LastClickPositionHelper.XPos, LastClickPositionHelper.YPos }, CultureInfo.CurrentCulture);
+                    BindingFlags.OptionalParamBinding, null, new object[] { this, graphControl.PointToClient(Cursor.Position).X, graphControl.PointToClient(Cursor.Position).Y }, CultureInfo.CurrentCulture);
                });
         }
 
@@ -129,13 +130,6 @@ namespace NGEd
             // On empty space
             if (e.Element == null)
             {
-                // similiar as MousePosition.X
-                //MessageBox.Show(string.Format("EPos X: {0} Y: {1}", e.Position.X, e.Position.Y));
-
-
-                LastClickPositionHelper.XPos = graphControl.PointToClient(Cursor.Position).X;
-                LastClickPositionHelper.YPos = graphControl.PointToClient(Cursor.Position).Y;
-
                 // Show a test menu for when you click on nothing
                 nodeMenu.ShowPopup(e.Position);
                 e.Cancel = false;
@@ -296,21 +290,6 @@ namespace NGEd
 
         private void barButtonItem11_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            //var obj = new { graphControl.GraphControl.Nodes };
-            //var json = JsonConvert.SerializeObject(graphControl);
-            //MessageBox.Show(json, "1", MessageBoxButtons.OK);
-
-            //JsonConvert.DeserializeObject<MaterialBaseNode>(json);
-            /*
-                // Tests
-            someNode = new Graph.Node("My Title");
-            someNode.Location = new Point(500, 100);
-            var check1Item = new Graph.Items.NodeCheckboxItem("Check 1", true, true) { Tag = 31337 };
-            someNode.AddItem(check1Item);
-            someNode.AddItem(new Graph.Items.NodeCheckboxItem("Check 2", true, true) { Tag = 42f });
-
-            graphControl.GraphControl.AddNode(someNode);
-             */
         }
 
         private void barButtonItem12_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -326,8 +305,5 @@ namespace NGEd
         {
             this.graphControl.GraphControl.ShowGrid = barCheckItem2.Checked;
         }
-
-        public LastClickPositionHelperC LastClickPositionHelper { get { return mLastClickPositionHelper; } }
-        private LastClickPositionHelperC mLastClickPositionHelper = new LastClickPositionHelperC();
     }
 }
