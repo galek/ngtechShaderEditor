@@ -57,9 +57,61 @@ namespace NGEd
             DockingUtils.LoadLayoutConfiguration(_LayoutName, dockManager1);
         }
 
+        // Действие при добавлении связи(аналогично при удалении). 
+        // Делаем обход по связям. В конце вызываем перестроение графа
         private void GraphControl_ConnectionAdded(object sender, AcceptNodeConnectionEventArgs e)
         {
             //throw new NotImplementedException();
+            //foreach (Node node in graphControl.GraphControl.Nodes)
+            //{
+            //    node.
+            //}
+
+            /*
+             Поля для Node:
+             НА ВХОДЕ В НОДУ string ResultShaderCode - содержит результирующий шейдерный код(когда подставили уже все значения). Если ничего не подсоединено - заглушка идет в код
+             string ActionCode - содержит код действия. Например - у нас нода цвета.
+             
+            для указания цвета это vec3(%s,%s,%s) + R.ToString() + G.ToString() + B.ToString();
+
+
+            При добавлении^ берем ResultShaderCode(это глобальное - относится к самой первой ноде. Например, пришло vec4 main(){ vec4 resColor= vec4(0,0,0,0); %s  return resColor;}
+            String.Format("%s, ActionCode); Так все в общих чертах.
+
+            Но учитывая, что у нас КОНКРЕТНО ДЛЯ МАТЕРИАЛА, несколько полей(Diffuse, Specular и т.д), то будем заменять по символам т.е результирующий код выглядит вот так
+
+            vec4 main{
+                 vec4 resColor=vec4(0,0,0,0);
+                 
+                #BaseColorAction
+                #MetallicAction
+                #SpecularAction
+                #Roughness
+                #EmissiveColor
+                #Opacity
+                #OpacityMask
+                #Normal
+                #WorldPositionOffset
+                #OpacityMask
+                #WorldDisplacement
+                #TessellationMultiplier
+                #SubSurfaceColor
+                #ClearCoat
+                #ClearCoatRoughness
+                #AmbientOcclusion
+                #Refraction
+                #PixelDepthOffset
+
+            return resColor;
+            }
+
+            String.Format("#BaseColorAction, AllNodesWhatChangedBaseColor.ActionCode); Так все в общих чертах.
+            Если ничего не подключено то поля так же заполняются(через невидимые ноды)
+
+             */
+
+            // TODO: Получить Node1(текущий нод, который и Node2
+            // Node1.ResultShaderCode+Node2.ActionCode
         }
 
         private void GraphControl_Click(object sender, ElementEventArgs e)
